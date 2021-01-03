@@ -102,7 +102,7 @@ export const App = () => {
           <CardWrapper>
             <h1>FAQ</h1>
             {messages.map((message, ndx) => (
-              <Accordion id={`accordion-${ndx}`} key={ndx} faq={message} />
+              <Accordion messageId={`message-${ndx}`} key={ndx} faq={message} />
             ))}
             <Attribution>
               Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noreferrer">Frontend Mentor</a>

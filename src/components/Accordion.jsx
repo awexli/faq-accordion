@@ -7,11 +7,6 @@ const AccordionContainer = styled.div`
   margin-bottom: 8px;
   border-bottom: 1px solid var(--divider-grey);
 
-  /* Important for expanding & contracting accordion */
-  max-height: 45px;
-  overflow: hidden;
-  transition: max-height ease-out 0.2s;
-
   * {
     font-size: var(--font-size-body);
 
@@ -22,6 +17,7 @@ const AccordionContainer = styled.div`
 `;
 
 const AccordionHeader = styled.button`
+  font-family: 'Kumbh Sans', sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,13 +28,13 @@ const AccordionHeader = styled.button`
   border: none;
   background: none;
 
-  color: var(--color-text-primary-dark);  
+  color: var(--color-text-primary-dark);
   transition: color ease 0.1s;
 
   :hover {
     color: var(--color-text-primary-red);
   }
-  
+
   :focus {
     outline: none;
     color: var(--color-text-primary-red);
@@ -54,42 +50,61 @@ const AccordionMessage = styled.p`
   line-height: 1.5;
   margin: 8px 0;
   white-space: pre-line;
+
+  /* Expanding & contracting accordion styles */
+  max-height: 0;
+  margin: 4px 0;
+  overflow: hidden;
+  transition: max-height ease-out 0.2s;
 `;
 
-const getAccordionContainer = (currentTarget) => {
-  let parent = currentTarget.parentNode;
-
-  while (!parent.id.includes('accordion-')) {
-    parent = parent.parentNode;
+const getAccordionMessage = (currentTarget) => {
+  while (true) {
+    // break loop in the event it reaches root node - however, this should never be the case
+    if (!currentTarget.parentNode) {
+      return 'whet';
+    } 
+    // "bubble up" until there is a sibling element
+    else if (!currentTarget.nextElementSibling) {
+      currentTarget = currentTarget.parentNode;
+    } 
+    // "bubble up" until nextElementSibling is AccordionMessage
+    else if (!currentTarget.nextElementSibling.id.includes('message-')) {
+      // currentTarget will eventually be AccordionHeader
+      currentTarget = currentTarget.parentNode;
+    } else {
+      break;
+    } 
   }
 
-  return parent;
+  // return AccordionMessage
+  return currentTarget.nextElementSibling;
 };
 
-export const Accordion = ({ faq, id }) => {
+export const Accordion = ({ faq, messageId }) => {
   const [isExpand, setIsExpand] = useState(false);
 
   const handleArrowClick = (e) => {
-    const target = e.target;
-    const accordion = getAccordionContainer(target);
+    const message = getAccordionMessage(e.target);
 
-    // Assuming there will always be an accordion container
-    if (accordion.style.maxHeight) {
-      accordion.style.maxHeight = null;
+    if (message === 'whet') {
+      return alert('whet');
+    } else if (message.style.maxHeight) {
+      message.style.maxHeight = null;
     } else {
-      accordion.style.maxHeight = accordion.scrollHeight + 'px';
+      message.style.maxHeight = message.scrollHeight + 'px';
     }
 
     setIsExpand(!isExpand);
   };
 
   return (
-    <AccordionContainer id={id}>
+    <AccordionContainer>
       <AccordionHeader onClick={handleArrowClick}>
         <AccordionHeading>{faq.question}</AccordionHeading>
         <ArrowDown isExpand={isExpand} />
       </AccordionHeader>
-      <AccordionMessage>{faq.answer}</AccordionMessage>
+      <AccordionMessage id={messageId}>{faq.answer}</AccordionMessage>
     </AccordionContainer>
   );
 };
