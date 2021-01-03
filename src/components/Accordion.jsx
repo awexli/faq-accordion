@@ -44,10 +44,11 @@ const AccordionHeader = styled.button`
 
 const AccordionHeading = styled.h2`
   margin: 8px 0;
+  font-weight: ${({ isExpand }) => (isExpand ? '700' : '500')};
 `;
 
 const AccordionMessage = styled.p`
-  color: var(--color-text-neutral-dark);
+  color: var(--color-text-neutral-grey);
   line-height: 1.5;
   margin: 8px 0;
   white-space: pre-line;
@@ -64,18 +65,18 @@ const getAccordionMessage = (currentTarget) => {
     // break loop in the event it reaches root node - however, this should never be the case
     if (!currentTarget.parentNode) {
       return 'whet';
-    } 
+    }
     // "bubble up" until there is a sibling element
     else if (!currentTarget.nextElementSibling) {
       currentTarget = currentTarget.parentNode;
-    } 
+    }
     // "bubble up" until nextElementSibling is AccordionMessage
     else if (!currentTarget.nextElementSibling.id.includes('message-')) {
       // currentTarget will eventually be AccordionHeader
       currentTarget = currentTarget.parentNode;
     } else {
       break;
-    } 
+    }
   }
 
   // return AccordionMessage
@@ -102,7 +103,7 @@ export const Accordion = ({ faq, messageId }) => {
   return (
     <AccordionContainer>
       <AccordionHeader onClick={handleArrowClick}>
-        <AccordionHeading>{faq.question}</AccordionHeading>
+        <AccordionHeading isExpand={isExpand}>{faq.question}</AccordionHeading>
         <ArrowDown isExpand={isExpand} />
       </AccordionHeader>
       <AccordionMessage id={messageId}>{faq.answer}</AccordionMessage>

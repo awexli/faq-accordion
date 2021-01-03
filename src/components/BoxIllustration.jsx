@@ -6,7 +6,7 @@ const IllustrationBoxWrapper = styled.div`
   svg {
     position: absolute;
     left: -5.8rem;
-    top: 13rem;
+    top: 14.2rem;
     z-index: 2;
   }
 

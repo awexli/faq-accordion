@@ -64,7 +64,7 @@ const FaqContainer = styled.div`
   }
 `;
 
-const Accordions = styled.div`
+const AccordionsContainer = styled.div`
   @media (min-width: 1280px) {
     width: 430px;
     height: 320px;
@@ -95,11 +95,11 @@ export const Card = ({ messages }) => {
         <DesktopPlaceholder />
         <FaqContainer>
           <h1>FAQ</h1>
-          <Accordions>
+          <AccordionsContainer>
             {messages.map((message, ndx) => (
               <Accordion messageId={`message-${ndx}`} key={ndx} faq={message} />
             ))}
-          </Accordions>
+          </AccordionsContainer>
         </FaqContainer>
       </CardContainer>
       <Attribution>
