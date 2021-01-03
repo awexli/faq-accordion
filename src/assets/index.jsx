@@ -1,5 +1,8 @@
 import { ReactComponent as WomanMobile } from './illustration-woman-online-mobile.svg';
+import { ReactComponent as WomanDesktop } from './illustration-woman-online-desktop.svg';
 import { ReactComponent as BackgroundPatternMobile } from './bg-pattern-mobile.svg';
+import { ReactComponent as BackgroundPatternDesktop } from './bg-pattern-desktop.svg';
+import { ReactComponent as BoxDesktop } from './illustration-box-desktop.svg';
 
 export const ArrowDown = ({ isExpand }) => (
   <svg
@@ -20,3 +23,6 @@ export const ArrowDown = ({ isExpand }) => (
 
 export const IllustrationMobile = () => <WomanMobile />;
 export const BackgroundMobile = () => <BackgroundPatternMobile />;
+export const IllustrationDesktop = () => <WomanDesktop />;
+export const BackgroundDesktop = () => <BackgroundPatternDesktop />;
+export const IllustrationBox = () => <BoxDesktop />;

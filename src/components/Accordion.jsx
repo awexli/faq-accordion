@@ -6,6 +6,7 @@ import { ArrowDown } from '../assets';
 const AccordionContainer = styled.div`
   margin-bottom: 8px;
   border-bottom: 1px solid var(--divider-grey);
+  padding: 4px 0;
 
   * {
     font-size: var(--font-size-body);

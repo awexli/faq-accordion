@@ -1,44 +1,31 @@
 import styled from 'styled-components';
 
-import { IllustrationMobile, BackgroundMobile } from '../assets/index';
 import { Accordion } from './Accordion';
+import { BoxIllustration } from './BoxIllustration';
+import { DesktopIllustration } from './DesktopIllustration';
+import { MobileIllustration } from './MobileIllustration';
 
 // Only purpose is to position the Illustration
 const CardShadow = styled.div`
   position: relative;
   padding-top: 6.75rem;
   margin-top: 1rem;
-`;
 
-const IllustrationWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-right: 2rem;
-
-  svg {
-    position: absolute;
-    top: 0;
-
-    :nth-child(2) {
-      padding-top: 6.5rem;
-      padding-left: 1.8rem;
-    }
+  @media (min-width: 1280px) {
+    padding: 0;
   }
 `;
 
 const CardContainer = styled.div`
-  background: white;
   width: 270px;
+
+  background: white;
   overflow: hidden;
   border-radius: calc(16px * 1.5);
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+
   padding: 8rem 1rem 1rem 1rem;
   margin-bottom: 1rem;
-
-  h1 {
-    text-align: center;
-    margin-top: 0;
-  }
 
   @media (min-width: 375px) {
     width: 300px;
@@ -48,8 +35,42 @@ const CardContainer = styled.div`
     width: 400px;
   }
 
-  @media (min-width: 768px) {
-    width: 500px;
+  @media (min-width: 1280px) {
+    position: relative;
+
+    width: 1000px;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+const DesktopPlaceholder = styled.div`
+  width: 400px;
+`;
+
+const FaqContainer = styled.div`
+  h1 {
+    text-align: center;
+    margin-top: 0;
+
+    @media (min-width: 1280px) {
+      text-align: start;
+    }
+  }
+`;
+
+const Accordions = styled.div`
+  @media (min-width: 1280px) {
+    width: 430px;
+    height: 320px;
+    overflow-y: scroll;
+    padding-right: 2rem;
+    margin-right: 1rem;
   }
 `;
 
@@ -57,32 +78,41 @@ const Attribution = styled.div`
   font-size: 11px;
   text-align: center;
   padding-top: 8px;
+  color: white;
+
+  a {
+    color: var(--color-text-primary-red);
+  }
 `;
 
 export const Card = ({ messages }) => {
   return (
     <CardShadow>
-      <IllustrationWrapper>
-        <IllustrationMobile />
-        <BackgroundMobile />
-      </IllustrationWrapper>
+      <BoxIllustration />
+      <MobileIllustration />
       <CardContainer>
-        <h1>FAQ</h1>
-        {messages.map((message, ndx) => (
-          <Accordion messageId={`message-${ndx}`} key={ndx} faq={message} />
-        ))}
-        <Attribution>
-          Challenge by{' '}
-          <a
-            href="https://www.frontendmentor.io?ref=challenge"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Frontend Mentor
-          </a>
-          . Coded by <a href="https://github.com/awexli">Alex Li</a>
-        </Attribution>
+        <DesktopIllustration />
+        <DesktopPlaceholder />
+        <FaqContainer>
+          <h1>FAQ</h1>
+          <Accordions>
+            {messages.map((message, ndx) => (
+              <Accordion messageId={`message-${ndx}`} key={ndx} faq={message} />
+            ))}
+          </Accordions>
+        </FaqContainer>
       </CardContainer>
+      <Attribution>
+        Challenge by{' '}
+        <a
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Frontend Mentor
+        </a>
+        . Coded by <a href="https://github.com/awexli">Alex Li</a>
+      </Attribution>
     </CardShadow>
   );
 };
