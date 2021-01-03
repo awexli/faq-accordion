@@ -7,7 +7,7 @@ const AccordionContainer = styled.div`
   margin-bottom: 8px;
   border-bottom: 1px solid var(--divider-grey);
 
-  // Important for animation
+  /* Important for expanding & contracting accordion */
   max-height: 45px;
   overflow: hidden;
   transition: max-height ease-out 0.2s;
@@ -21,15 +21,26 @@ const AccordionContainer = styled.div`
   }
 `;
 
-const AccordionHeader = styled.div`
+const AccordionHeader = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
+  padding: 0;
 
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  background: none;
+
+  color: var(--color-text-primary-dark);  
   transition: color ease 0.1s;
-  
+
   :hover {
+    color: var(--color-text-primary-red);
+  }
+  
+  :focus {
+    outline: none;
     color: var(--color-text-primary-red);
   }
 `;
@@ -45,64 +56,38 @@ const AccordionMessage = styled.p`
   white-space: pre-line;
 `;
 
-const ArrowButton = styled.button`
-  cursor: pointer;
-  border: none;
-  background: transparent;
+const getAccordionContainer = (currentTarget) => {
+  let parent = currentTarget.parentNode;
 
-  :focus {
-    outline: none;
-  }
-`;
-
-const getAccordionContainer = (numOfChildren, currentTarget) => {
-  let parent = currentTarget;
-
-  for (let i = 0; i < numOfChildren; ++i) {
+  while (!parent.id.includes('accordion-')) {
     parent = parent.parentNode;
   }
 
   return parent;
-}
+};
 
-export const Accordion = ({ faq }) => {
-  const [expand, setExpand] = useState(false);
+export const Accordion = ({ faq, id }) => {
+  const [isExpand, setIsExpand] = useState(false);
 
   const handleArrowClick = (e) => {
     const target = e.target;
-    let panel;
+    const accordion = getAccordionContainer(target);
 
-    if (target.nodeName === "path") {
-      panel = getAccordionContainer(4, target);
-    } else if (target.nodeName === 'svg') {
-      panel = getAccordionContainer(3, target);
-    } else if (target.nodeName === 'H2' || target.nodeName === 'BUTTON') {
-      panel = getAccordionContainer(2, target);
+    // Assuming there will always be an accordion container
+    if (accordion.style.maxHeight) {
+      accordion.style.maxHeight = null;
     } else {
-      panel = target.parentNode;
+      accordion.style.maxHeight = accordion.scrollHeight + 'px';
     }
 
-    if (!panel) {
-      setExpand(!expand);
-      return;
-    }
-    
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + 'px';
-    }
-
-    setExpand(!expand);
+    setIsExpand(!isExpand);
   };
 
   return (
-    <AccordionContainer isExpand={expand}>
+    <AccordionContainer id={id}>
       <AccordionHeader onClick={handleArrowClick}>
         <AccordionHeading>{faq.question}</AccordionHeading>
-        <ArrowButton>
-          <ArrowDown isExpand={expand} />
-        </ArrowButton>
+        <ArrowDown isExpand={isExpand} />
       </AccordionHeader>
       <AccordionMessage>{faq.answer}</AccordionMessage>
     </AccordionContainer>
