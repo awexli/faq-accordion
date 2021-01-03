@@ -28,7 +28,7 @@ export const DesktopIllustration = () => {
   return (
     <IllustrationWrapperDesktop>
       {/* Only way to get the svg shadows showing */}
-      <img src={logo}></img>
+      <img src={logo} alt="illustration of women working in front of computer desk"></img>
       <BackgroundDesktop />
     </IllustrationWrapperDesktop>
   );
