@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { Accordion } from './components/Accordion';
+import { Card } from './components/Card';
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -26,43 +26,14 @@ const MainContainer = styled.div`
   );
 
   // Expands background gradient on small viewports
-  height: 100vh;
+  min-height: 100vh;
+  max-height: 150vh;
   overflow: auto;
 
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--color-text-primary-dark);
-`;
-
-const MainCard = styled.div`
-  background: white;
-  width: 300px;
-  overflow: hidden;
-  border-radius: calc(16px * 1.5);
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-
-  @media (min-width: 576px) {
-    width: 400px;
-  }
-
-  @media (min-width: 768px) {
-    width: 500px;
-  }
-`;
-
-const CardWrapper = styled.div`
-  padding: 1rem;
-
-  h1 {
-    text-align: center;
-    margin-top: 0;
-  }
-`;
-
-const Attribution = styled.div`
-  font-size: 11px;
-  text-align: center;
 `;
 
 const messages = [
@@ -98,18 +69,7 @@ export const App = () => {
     <>
       <GlobalStyles />
       <MainContainer>
-        <MainCard>
-          <CardWrapper>
-            <h1>FAQ</h1>
-            {messages.map((message, ndx) => (
-              <Accordion messageId={`message-${ndx}`} key={ndx} faq={message} />
-            ))}
-            <Attribution>
-              Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noreferrer">Frontend Mentor</a>
-              . Coded by <a href="https://github.com/awexli">Alex Li</a>
-            </Attribution>
-          </CardWrapper>
-        </MainCard>
+        <Card messages={messages} />
       </MainContainer>
     </>
   );

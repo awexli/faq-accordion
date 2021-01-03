@@ -1,3 +1,6 @@
+import { ReactComponent as WomanMobile } from './illustration-woman-online-mobile.svg';
+import { ReactComponent as BackgroundPatternMobile } from './bg-pattern-mobile.svg';
+
 export const ArrowDown = ({ isExpand }) => (
   <svg
     width="10"
@@ -14,3 +17,6 @@ export const ArrowDown = ({ isExpand }) => (
     />
   </svg>
 );
+
+export const IllustrationMobile = () => <WomanMobile />;
+export const BackgroundMobile = () => <BackgroundPatternMobile />;
