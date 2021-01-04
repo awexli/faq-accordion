@@ -54,6 +54,7 @@ const DesktopPlaceholder = styled.div`
 `;
 
 const FaqContainer = styled.div`
+  position: relative;
   h1 {
     text-align: center;
     margin-top: 0;
@@ -69,8 +70,28 @@ const AccordionsContainer = styled.div`
     width: 430px;
     height: 320px;
     overflow-y: scroll;
-    padding-right: 2rem;
+    padding: 8px 2rem 0 0;
     margin-right: 1rem;
+  }
+`;
+
+const FadeTop = styled.div`
+  @media (min-width: 1280px) {
+    position: absolute;
+    top: 3.1rem;
+    height: 1.5rem;
+    width: 100%;
+    background-image: linear-gradient(white, rgba(255, 255, 255, 0));
+  }
+`;
+
+const FadeBottom = styled.div`
+  @media (min-width: 1280px) {
+    position: absolute;
+    bottom: 0rem;
+    height: 1.5rem;
+    width: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), white);
   }
 `;
 
@@ -95,11 +116,13 @@ export const Card = ({ messages }) => {
         <DesktopPlaceholder />
         <FaqContainer>
           <h1>FAQ</h1>
+          <FadeTop />
           <AccordionsContainer>
             {messages.map((message, ndx) => (
-              <Accordion messageId={`message-${ndx}`} key={ndx} faq={message} />
+              <Accordion key={ndx} faq={message} />
             ))}
           </AccordionsContainer>
+          <FadeBottom />
         </FaqContainer>
       </CardContainer>
       <Attribution>

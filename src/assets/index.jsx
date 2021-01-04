@@ -3,12 +3,11 @@ import { ReactComponent as BackgroundPatternMobile } from './bg-pattern-mobile.s
 import { ReactComponent as BackgroundPatternDesktop } from './bg-pattern-desktop.svg';
 import { ReactComponent as BoxDesktop } from './illustration-box-desktop.svg';
 
-export const ArrowDown = ({ isExpand }) => (
+export const ArrowDown = () => (
   <svg
     width="10"
     height="7"
     xmlns="http://www.w3.org/2000/svg"
-    transform={isExpand ? 'rotate(180)' : ''}
   >
     <path
       d="M1 .799l4 4 4-4"

@@ -32,6 +32,15 @@ const AccordionHeader = styled.button`
   color: var(--color-text-primary-dark);
   transition: color ease 0.1s;
 
+  span {
+    font-weight: ${({ isExpand }) => (isExpand ? '700' : '500')};
+  }
+
+  svg {
+    transform: ${({ isExpand }) => (isExpand ? 'rotate(180deg)' : '')};
+    transition: transform ease 0.3s;
+  }
+
   :hover {
     color: var(--color-text-primary-red);
   }
@@ -42,20 +51,18 @@ const AccordionHeader = styled.button`
   }
 `;
 
-const AccordionHeading = styled.h2`
-  margin: 8px 0;
-  font-weight: ${({ isExpand }) => (isExpand ? '700' : '500')};
+const AccordionHeading = styled.span`
+  margin: 10px 0;
 `;
 
 const AccordionMessage = styled.p`
   color: var(--color-text-neutral-grey);
   line-height: 1.5;
-  margin: 8px 0;
+  margin: 4px 0;
   white-space: pre-line;
 
   /* Expanding & contracting accordion styles */
   max-height: 0;
-  margin: 4px 0;
   overflow: hidden;
   transition: max-height ease-out 0.2s;
 `;
@@ -71,7 +78,7 @@ const getAccordionMessage = (currentTarget) => {
       currentTarget = currentTarget.parentNode;
     }
     // "bubble up" until nextElementSibling is AccordionMessage
-    else if (!currentTarget.nextElementSibling.id.includes('message-')) {
+    else if (!currentTarget.nextElementSibling.classList.contains('message')) {
       // currentTarget will eventually be AccordionHeader
       currentTarget = currentTarget.parentNode;
     } else {
@@ -83,7 +90,7 @@ const getAccordionMessage = (currentTarget) => {
   return currentTarget.nextElementSibling;
 };
 
-export const Accordion = ({ faq, messageId }) => {
+export const Accordion = ({ faq }) => {
   const [isExpand, setIsExpand] = useState(false);
 
   const handleArrowClick = (e) => {
@@ -102,11 +109,11 @@ export const Accordion = ({ faq, messageId }) => {
 
   return (
     <AccordionContainer>
-      <AccordionHeader onClick={handleArrowClick}>
-        <AccordionHeading isExpand={isExpand}>{faq.question}</AccordionHeading>
-        <ArrowDown isExpand={isExpand} />
+      <AccordionHeader isExpand={isExpand} onClick={handleArrowClick}>
+        <AccordionHeading>{faq.question}</AccordionHeading>
+        <ArrowDown />
       </AccordionHeader>
-      <AccordionMessage id={messageId}>{faq.answer}</AccordionMessage>
+      <AccordionMessage className="message">{faq.answer}</AccordionMessage>
     </AccordionContainer>
   );
 };
