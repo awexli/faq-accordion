@@ -29,6 +29,7 @@ const CardContainer = styled.div`
 
   @media (min-width: 375px) {
     width: 300px;
+    padding-bottom: 3rem;
   }
 
   @media (min-width: 576px) {
@@ -79,7 +80,7 @@ const FadeTop = styled.div`
   @media (min-width: 1280px) {
     position: absolute;
     top: 3.1rem;
-    height: 1.5rem;
+    height: 1.8rem;
     width: 100%;
     background-image: linear-gradient(white, rgba(255, 255, 255, 0));
   }
@@ -127,11 +128,7 @@ export const Card = ({ messages }) => {
       </CardContainer>
       <Attribution>
         Challenge by{' '}
-        <a
-          href="https://www.frontendmentor.io?ref=challenge"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noreferrer">
           Frontend Mentor
         </a>
         . Coded by <a href="https://github.com/awexli">Alex Li</a>
