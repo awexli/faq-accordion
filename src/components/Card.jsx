@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Accordion } from './Accordion';
+import { Faq } from './Faq';
 import { BoxIllustration } from './BoxIllustration';
 import { DesktopIllustration } from './DesktopIllustration';
 import { MobileIllustration } from './MobileIllustration';
@@ -39,60 +39,11 @@ const CardContainer = styled.div`
   @media (min-width: 1280px) {
     position: relative;
 
-    width: 1000px;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    padding-left: 0;
+    width: 960px;
+    height: 410px; // height that prevents layout jank
+    padding: 4rem 0 3rem 0;
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-`;
-
-const DesktopPlaceholder = styled.div`
-  width: 400px;
-`;
-
-const FaqContainer = styled.div`
-  position: relative;
-  h1 {
-    text-align: center;
-    margin-top: 0;
-
-    @media (min-width: 1280px) {
-      text-align: start;
-    }
-  }
-`;
-
-const AccordionsContainer = styled.div`
-  @media (min-width: 1280px) {
-    width: 430px;
-    height: 320px;
-    overflow-y: scroll;
-    padding: 8px 2rem 0 0;
-    margin-right: 1rem;
-  }
-`;
-
-const FadeTop = styled.div`
-  @media (min-width: 1280px) {
-    position: absolute;
-    top: 3.1rem;
-    height: 1.8rem;
-    width: 100%;
-    background-image: linear-gradient(white, rgba(255, 255, 255, 0));
-  }
-`;
-
-const FadeBottom = styled.div`
-  @media (min-width: 1280px) {
-    position: absolute;
-    bottom: 0rem;
-    height: 1.5rem;
-    width: 100%;
-    background-image: linear-gradient(rgba(255, 255, 255, 0), white);
   }
 `;
 
@@ -110,22 +61,12 @@ const Attribution = styled.div`
 export const Card = ({ messages }) => {
   return (
     <CardShadow>
-      <BoxIllustration />
-      <MobileIllustration />
       <CardContainer>
         <DesktopIllustration />
-        <DesktopPlaceholder />
-        <FaqContainer>
-          <h1>FAQ</h1>
-          <FadeTop />
-          <AccordionsContainer>
-            {messages.map((message, ndx) => (
-              <Accordion key={ndx} faq={message} />
-            ))}
-          </AccordionsContainer>
-          <FadeBottom />
-        </FaqContainer>
+        <Faq messages={messages} />
       </CardContainer>
+      <BoxIllustration />
+      <MobileIllustration />
       <Attribution>
         Challenge by{' '}
         <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noreferrer">
